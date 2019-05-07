@@ -30,10 +30,17 @@ public class Teleop extends OpMode {
      */
     public void loop() {
         // Convert joysticks to desired motion.
-        rightFrontMotor.setPower(-gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x);
-        leftFrontMotor.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x);
-        rightBackMotor.setPower(-gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x);
-        leftBackMotor.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x);
+        if(!gamepad1.right_bumper) {
+            rightFrontMotor.setPower(-gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x);
+            leftFrontMotor.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x);
+            rightBackMotor.setPower(-gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x);
+            leftBackMotor.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x);
+        }
+        else
+            rightFrontMotor.setPower(0.5 * (-gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x));
+            leftFrontMotor.setPower(0.5 * (gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x));
+            rightBackMotor.setPower(0.5 * (-gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x));
+            leftBackMotor.setPower(0.5 * (gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x));
 
         // TODO: Add rest of robot teleop control.
     }
